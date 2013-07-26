@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.6.3/coffee-script.min.js"></script>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<br>
+<div class="container">
+	<div class="well span4 offset4">
+		<legend><h2 class="form-signin-heading">template game</h2></legend>
+		<h4>Join Game</h4>
+		<select class="span3" id="games" size="4"></select>
+		<button class="btn btn-large btn-info" onClick="join_game()"><i class="icon-share icon-white"></i> Join Game</button>
+		<button class="btn btn-large btn-info" onClick="fetch_games()"><i class="icon-refresh icon-white"></i> Refresh List</button>
+		<br><br>
+		<h4>Create Game</h4>
+		<input id="input_create" placeholder="Game Name"></input>
+		<br><br>
+		<button class="btn btn-large btn-info" onCLick="create_game()"><i class="icon-plus icon-white"></i> Create Game</button>
+		<br>
+	</div>
+	<br></br>
+</div>
+
+<div class="modal hide fade">
+	<div class="modal-header">
+	</div>
+	<div class="modal-body" style="max-height:600px; ">
+		<canvas id="canvas"></canvas>
+	</div>
+	<div class="modal-footer">
+	</div>
+</div>
+
+</body>
+
+<script type="text/coffeescript">
+
+	client = exports ? this
+
+	url = "/images/"
+
+	canvas = $("#canvas")[0]
+	#canvas.width = 13*50 #x-coord
+	#canvas.height = 11*50 #y-coord
+	ctx = canvas.getContext("2d")
+
+	#load all images
+	#images = []
+	#images["test"] = new Image()
+	#images["test"].src = "#{url}test.png"
+
+
+	socket = io.connect()
+
+	socket.on 'game_list', (data) ->
+		#do something
+
+	client.create_game = () ->
+		# create game
+
+	client.join_game = () ->
+		# join game
+
+	client.fetch_games = () ->
+		# fetch games
+
+	$(document).keyup (event) -> 
+		direction = switch event.which
+			when 37 then "left"
+			when 38 then "up"
+			when 39 then "right"
+			when 40 then "down"
+			else ""
+		if direction
+			event.preventDefault()
+			#arrow keys
+		else if event.which is 32
+			event.preventDefault()
+			#space
+		else if event.which is 27
+			event.preventDefault()
+			#esc
+
+</script>
+</html>
